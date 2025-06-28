@@ -1,0 +1,39 @@
+
+<section class="py-4">
+    <div class="container p-5 bg-gray">
+        <div class="text">
+                    <h1>Welcome to our movie app</h1>
+        <p class="my-4">Millions of movies, TV shows and people to discover. Explore now.</p>
+        </div>
+
+    <div class="input-group input-group-lg">
+
+  <input type="text" class="form-control" aria-label="Sizing example input" placeholder="Search and explore...." aria-describedby="inputGroup-sizing-lg">
+<button class="btn bg-main">Search</button>
+</div>
+
+
+    </div>
+
+</section>
+
+<section>
+    <div class="container">
+        <h2 class="pb-4">Now playing</h2>
+        <div class="row gy-4">
+            @for(movie of movies(); track movie.id){
+    <div class="col-lg-2 col-md-4 col-sm-6">
+                <div class="card h-100  border-0">
+  <img [src]="'https://image.tmdb.org/t/p/w500'+movie.poster_path" class="card-img-top rounded-3" alt="...">
+  <div class="card-body border-0 ">
+    <h5 class="card-title fs-5 fw-bold">{{movie.title}}</h5>
+    <p class="card-text text-muted fs-6">{{movie.release_date}}</p>
+ 
+  </div>
+</div>
+            </div>
+            }
+        
+        </div>
+    </div>
+</section>
