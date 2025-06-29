@@ -17,5 +17,7 @@ return this._http.get(` https://api.themoviedb.org/3/tv/popular?api_key=e2aa1cf4
  getTvShowsById(id:number){
   return this._http.get(`https://api.themoviedb.org/3/tv/${id}?api_key=e2aa1cf4186305fb4d284f821686e38d&language`)
  }
-
+ getSimilarShows(id:number){
+  return this._http.get(`https://api.themoviedb.org/3/tv/${id}/similar?api_key=e2aa1cf4186305fb4d284f821686e38d&language=en-US&page=1`)
+ }
 }

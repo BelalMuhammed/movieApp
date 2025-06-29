@@ -23,7 +23,7 @@
             @for(movie of tvshow(); track movie.id){
     <div class="col-lg-2 col-md-4 col-sm-6">
                 <div class="card h-100  border-0">
-                    <a [routerLink]=" ['/movieDetails',movie.id]" >
+                    <a [routerLink]=" ['/tvShowsDetails',movie.id]" >
   <img [src]="'https://image.tmdb.org/t/p/w500'+movie.poster_path" class="card-img-top rounded-3" alt="...">
 
                     </a>

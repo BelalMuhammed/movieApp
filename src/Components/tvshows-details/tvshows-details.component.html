@@ -1,1 +1,71 @@
-<p>tvshows-details works!</p>
+
+
+    <section>
+<div class="container">
+  <div class="row align-items-center py-4">
+    <div class="col-md-4 mx-auto col-8">
+      <img  [src]="'https://image.tmdb.org/t/p/w500'+show().poster_path"  class="w-100 mx-auto" alt="movie.poster">
+   
+    </div>
+
+    <div class="col-md-8  ">
+      <h2 class="my-4">{{show().name}}</h2>
+      <p class="text-muted">{{show().first_air_date}}</p>
+      <p class="mb-4">{{show().overview}}</p>
+      <div class="d-flex flex-wrap ">
+              @for(gener of show().genres; track gener.id){  <span class="genres bg-main me-3 my-3"> {{gener.name}}</span>}
+
+      </div>
+    
+      <div class="d-flex mt-4">
+        <div  ><span class="fw-bold ">Seasons : </span> {{show().number_of_seasons}} </div>
+        <div  class="mx-4"><span class="fw-bold  ">Languages : </span> {{show().spoken_languages[0].name}}</div>
+      </div>
+<div class="my-3">
+               @for(companie of show().production_companies; track companie.id){  <img [src]="'https://image.tmdb.org/t/p/w500'+companie.logo_path" class="image-width me-3 " alt="">}
+
+</div>
+
+<a [href]="show().homepage" class="btn btn-outline-warning rounded-pill">Website</a>
+
+    </div>
+  </div>
+
+<hr>
+
+  <div class="row ">
+<h3  class=" fw-bold py-3">Recommendations</h3>
+@for(movie of similarsShows() ; track movie.id){
+   <div class="col-md-2 col-6 cardMovie" >
+
+                <div class="card h-100  border-0">
+                        <a [routerLink]=" ['/tvShowsDetails',movie.id]" >
+                              <img [src]="'https://image.tmdb.org/t/p/w500'+movie.poster_path" class="card-img-top rounded-3" alt="...">
+
+                        </a>
+  <div class="card-body border-0 ">
+    <h5 class="card-title fs-5 fw-bold">{{movie.title}}</h5>
+    <p class="card-text text-muted fs-6">{{movie.release_date}}</p>
+ 
+  </div>
+</div>
+
+
+
+</div>
+}
+ 
+
+
+
+
+
+
+</div>
+
+
+
+    </div>
+    </section>
+
+
