@@ -6,4 +6,6 @@ export const routes: Routes = [
     {path:"movieDetails/:id", loadComponent:()=>import('../Components/movie-details/movie-details.component').then(x =>x.MovieDetailsComponent),pathMatch:'full'},
     {path:"tvShows", loadComponent:()=>import('../Components/tvshows/tvshows.component').then(x =>x.TVshowsComponent),pathMatch:'full'},
     {path:"tvShowsDetails/:id", loadComponent:()=>import('../Components/tvshows-details/tvshows-details.component').then(x =>x.TVshowsDetailsComponent),pathMatch:'full'},
+    {path:"wishList", loadComponent:()=>import('../Components/wishlist/wishlist.component').then(x =>x.WishlistComponent),pathMatch:'full'},
+
 ];

@@ -1,1 +1,75 @@
-<p>wishlist works!</p>
+<section class="wishlist">
+    <div class="container">
+        @if(_wishlistService.moviesWishlist().length>0){
+            <h2 class="py-3">Watch list</h2>
+        }
+ 
+<div class="row gy-3 justify-content-between">
+    @for(movie of _wishlistService.moviesWishlist(); track movie.id){
+    
+         <div class="col-12 col-sm-12 col-lg-6 col-md-6 ">
+                 <a [routerLink]=" ['/movieDetails',movie.id]" >
+                     <div class="row p-3 mx-2  shadow rounded-3">
+                    <div class="col-sm-12 col-md-12 col-lg-4">
+                                <figure><img [src]="'https://image.tmdb.org/t/p/w500'+movie.poster_path" class="w-100 rounded-4" alt=""></figure>
+                    </div>
+                    <div class="col-8 col-sm-12 col-md-12 col-lg-8 col-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3 class="fw-bold fs-2">{{movie.title}}</h3>
+                             <i class="fa-solid fa-heart fs-3 text-warning" (click)="removeFromWishlist($event,movie,'movie')" ></i>
+                        </div>
+                        <p class="text-muted">{{movie.release_date}}</p>
+                        <p class="p-0"> {{ movie.overview | truncate:100 }}</p>
+                    </div>
+                </div>
+                 </a>
+               
+    </div>
+        
+   
+    }
+
+</div>
+@if(_wishlistService.tvShowsWishlist().length>0){<h2 class="py-3">Tv list</h2>}
+
+<div class="row gy-3  justify-content-between">
+    @for(movie of _wishlistService.tvShowsWishlist(); track movie.id){
+            <div class="col-12 col-sm-12 col-lg-6 col-md-6 ">
+                  <a [routerLink]=" ['/tvShowsDetails',movie.id]" >
+                         <div class="row p-3 mx-2  shadow rounded-3">
+                    <div class="col-sm-12 col-md-12 col-lg-4">
+                                <figure><img [src]="'https://image.tmdb.org/t/p/w500'+movie.poster_path" class="w-100 rounded-4" alt=""></figure>
+                    </div>
+                    <div class="col-8 col-sm-12 col-md-12 col-lg-8 col-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3 class="fw-bold fs-2">{{movie.name}}</h3>
+                             <i class="fa-solid fa-heart fs-3 text-warning" (click)="removeFromWishlist($event,movie,'tv')" ></i>
+                        </div>
+                        <p class="text-muted">{{movie.first_air_date}}</p>
+                        <p class="p-0"> {{ movie.overview | truncate:100 }}</p>
+                    </div>
+                </div>
+                  </a>
+           
+    </div>
+    }
+
+</div>
+    </div>
+</section>
+@if(!(_wishlistService.tvShowsWishlist().length>0 || _wishlistService.moviesWishlist().length>0)){
+    <section>
+    <div class="container vh-100 d-flex align-items-center justify-content-center">
+        <div class="text-center w-25">
+            <i class="fa-solid fa-heart-crack heart"></i>
+        <h3 class="text-center py-4">No movies in watch list</h3>
+        <a routerLink="/home">
+            <button class="btn btn-warning  mx-auto w-100">Back to home</button>
+        </a>
+
+        </div>
+
+    </div>
+</section>
+}
+

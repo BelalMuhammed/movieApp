@@ -28,10 +28,33 @@
   <img [src]="'https://image.tmdb.org/t/p/w500'+movie.poster_path" class="card-img-top rounded-3" alt="...">
 
                     </a>
-  <div class="card-body border-0 ">
-    <h5 class="card-title fs-5 fw-bold">{{movie.title}}</h5>
+  <div class="card-body border-0 d-flex justify-content-between p-0 pt-2">
+    <div>
+    <h5 class="card-title fs-5 fw-bold m-0 ">{{movie.title}}</h5>
     <p class="card-text text-muted fs-6">{{movie.release_date}}</p>
+    </div>
+    <!-- <i class="fa-regular fa-heart mt-2 fs-3"></i> -->
+<!-- <i class="fa-solid fa-heart my-auto mt-2 fs-3"></i> -->
+
+<button
+  (click)="toggleInWishlist(movie, 'movie')"
+  class="border-0 bg-transparent "
+>
+       @if(isInWishlist(movie, 'movie')){
+          <i class="fa-solid fa-heart fs-3 text-warning" ></i>
+        }@else if( !isInWishlist(movie, 'movie')){
+           <i class="fa-regular fa-heart fs-3 "></i>
+        }
  
+</button>
+
+            <!-- <button (click)="toggleWishlist($event, singleProduct())"
+        class="border-0 bg-transparent position-absolute end-0 m-1">
+        @if(_wishList.isInWishlist(singleProduct())){
+          <i class="fa-solid fa-heart fs-3 text-danger" ></i>
+        }@else if(!_wishList.isInWishlist(singleProduct())){
+           <i class="fa-regular fa-heart fs-3 "></i>
+        } -->
   </div>
 </div>
             </div>

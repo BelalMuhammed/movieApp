@@ -27,10 +27,24 @@
   <img [src]="'https://image.tmdb.org/t/p/w500'+movie.poster_path" class="card-img-top rounded-3" alt="...">
 
                     </a>
-  <div class="card-body border-0 ">
+  <div class="card-body border-0 d-flex justify-content-between p-0 pt-2">
+    <div>
     <h5 class="card-title fs-5 fw-bold">{{movie.name}}</h5>
     <p class="card-text text-muted fs-6">{{movie.first_air_date}}</p>
+    </div>
+
+
+ <button
+  (click)="toggleInWishlist(movie, 'tv')"
+  class="border-0 bg-transparent "
+>
+       @if(isInWishlist(movie, 'tv')){
+          <i class="fa-solid fa-heart fs-3 text-warning" ></i>
+        }@else if( !isInWishlist(movie, 'tv')){
+           <i class="fa-regular fa-heart fs-3 "></i>
+        }
  
+</button>
   </div>
 </div>
             </div>
