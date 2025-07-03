@@ -7,7 +7,7 @@
 
     <div class="input-group input-group-lg">
 
-  <input type="text" class="form-control" aria-label="Sizing example input" placeholder="Search and explore...." aria-describedby="inputGroup-sizing-lg">
+  <input type="text" [(ngModel)]="term" (change)="search()" class="form-control" aria-label="Sizing example input" placeholder="Search and explore...." aria-describedby="inputGroup-sizing-lg">
 <button class="btn bg-main">Search</button>
 </div>
 
@@ -18,16 +18,19 @@
 
 <section>
     <div class="container">
-        <h2 class="pb-4">Now playing</h2>
+        <h2 class="pb-4">Tv Shows</h2>
         <div class="row gy-4">
             @for(movie of tvshow(); track movie.id){
-    <div class="col-lg-2 col-md-4 col-sm-6">
+              @if(movie.poster_path){
+                  <div class="col-lg-2 col-md-4 col-sm-6">
                 <div class="card h-100  border-0">
                     <a [routerLink]=" ['/tvShowsDetails',movie.id]" >
   <img [src]="'https://image.tmdb.org/t/p/w500'+movie.poster_path" class="card-img-top rounded-3" alt="...">
 
                     </a>
-  <div class="card-body border-0 d-flex justify-content-between p-0 pt-2">
+  <div class="card-body position-relative border-0 p-0 pt-2">
+
+<div class=" d-flex justify-content-between pt-3">
     <div>
     <h5 class="card-title fs-5 fw-bold">{{movie.name}}</h5>
     <p class="card-text text-muted fs-6">{{movie.first_air_date}}</p>
@@ -45,10 +48,56 @@
         }
  
 </button>
+</div>
+
+
+<div class="counter">
+
+<div class="vote-circle text-center position-relative">
+  <svg height="40" width="40" class="circle-progress">
+    <circle r="18" cx="20" cy="20" class="circle-bg" />
+    <circle
+      r="18"
+      cx="20"
+      cy="20"
+      class="circle"
+      [attr.stroke-dasharray]="2 * Math.PI * 18"
+      [attr.stroke-dashoffset]="2 * Math.PI * 18 - (movie.vote_average * 10 / 100) * (2 * Math.PI * 18)"
+      [attr.stroke]="getVoteColor(movie.vote_average)"
+    />
+  </svg>
+
+  <div class="circle-overlay-small">
+    {{ movie.vote_average * 10 | number: '1.0-0' }}%
+  </div>
+</div>
+
+  
+</div>
+
   </div>
 </div>
             </div>
+              }
+  
             }
+
+            @if(!term){
+         <div   class="d-flex justify-content-center">
+          <ngb-pagination
+           class="my-pagination"
+	[collectionSize]="5000"
+	[(page)]="page"
+  (pageChange)="onPageChange($event)"
+	[maxSize]="5"
+	[rotate]="true"
+	[ellipses]="true"
+	[boundaryLinks]="false"
+
+/>
+         </div>
+            }
+      
         
         </div>
     </div>

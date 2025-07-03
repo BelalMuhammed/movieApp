@@ -9,8 +9,40 @@
     </div>
 
     <div class="col-md-8  ">
-      <h2 class="my-4">{{show().name}}</h2>
-      <p class="text-muted">{{show().first_air_date}}</p>
+      <div class="d-flex justify-content-between">
+            <h2 class="">{{show().name}}</h2>
+                 <button
+  (click)="toggleInWishlist(show(), 'tv')"
+  class="border-0 bg-transparent "
+>
+       @if(isInWishlist(show(), 'tv')){
+          <i class="fa-solid fa-heart fs-3 text-warning" ></i>
+        }@else if( !isInWishlist(show(), 'tv')){
+           <i class="fa-regular fa-heart fs-3 "></i>
+        }
+ 
+</button>
+      </div>
+      <p class="text-muted m-0">{{show().first_air_date}}</p>
+
+
+<div class="my-3">
+@for (star of fullStars; track $index) {
+  <i class="fas fa-star text-dark"></i>
+}
+
+
+@if (hasHalf) {
+  <i class="fas fa-star-half-alt text-dark"></i>
+}
+
+
+@for (star of emptyStars; track $index) {
+  <i class="far fa-star text-dark"></i>
+}
+
+</div>
+
       <p class="mb-4">{{show().overview}}</p>
       <div class="d-flex flex-wrap ">
               @for(gener of show().genres; track gener.id){  <span class="genres bg-main me-3 my-3"> {{gener.name}}</span>}
@@ -34,7 +66,10 @@
 <hr>
 
   <div class="row ">
+    @if(similarsShows().length>0){
 <h3  class=" fw-bold py-3">Recommendations</h3>
+    }
+
 @for(movie of similarsShows() ; track movie.id){
    <div class="col-md-2 col-6 cardMovie" >
 
@@ -44,8 +79,8 @@
 
                         </a>
   <div class="card-body border-0 ">
-    <h5 class="card-title fs-5 fw-bold">{{movie.title}}</h5>
-    <p class="card-text text-muted fs-6">{{movie.release_date}}</p>
+    <h5 class="card-title fs-5 fw-bold">{{movie.name}}</h5>
+    <p class="card-text text-muted fs-6">{{movie.first_air_date}}</p>
  
   </div>
 </div>

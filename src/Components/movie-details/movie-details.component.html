@@ -9,8 +9,38 @@
     </div>
 
     <div class="col-md-8  ">
-      <h2 class="my-4">{{movie().title}}</h2>
-      <p class="text-muted">{{movie().release_date}}</p>
+      <div class="d-flex justify-content-between align-items-center">
+         <h2 class="">{{movie().title}}</h2>
+         <button
+  (click)="toggleInWishlist(movie(), 'movie')"
+  class="border-0 bg-transparent "
+>
+       @if(isInWishlist(movie(), 'movie')){
+          <i class="fa-solid fa-heart fs-3 text-warning" ></i>
+        }@else if( !isInWishlist(movie(), 'movie')){
+           <i class="fa-regular fa-heart fs-3 "></i>
+        }
+ 
+</button>
+      </div>
+   <p class="text-muted p-0 m-lg-0">{{movie().release_date}}</p>
+      <div class="my-3">
+        @for (star of fullStars; track $index) {
+  <i class="fas fa-star text-dark"></i>
+}
+
+
+@if (hasHalf) {
+  <i class="fas fa-star-half-alt text-dark"></i>
+}
+
+
+@for (star of emptyStars; track $index) {
+  <i class="far fa-star text-dark"></i>
+}
+      </div>
+     
+   
       <p class="mb-4">{{movie().overview}}</p>
       <div class="d-flex flex-wrap ">
               @for(gener of movie().genres; track gener.id){  <span class="genres bg-main me-3 my-3"> {{gener.name}}</span>}
@@ -22,7 +52,7 @@
         <div  class="mx-4"><span class="fw-bold  ">Languages : </span> {{movie().spoken_languages[0].name}}</div>
       </div>
 <div class="my-3">
-               @for(companie of movie().production_companies; track companie.id){  <img [src]="'https://image.tmdb.org/t/p/w500'+companie.logo_path" class="w-25 me-3 " alt="">}
+               @for(companie of movie().production_companies; track companie.id){  <img [src]="'https://image.tmdb.org/t/p/w500'+companie.logo_path" class="image-width  me-3 " alt="">}
 
 </div>
 
@@ -34,7 +64,10 @@
 <hr>
 
   <div class="row ">
+    @if(similarMovies().length>0){
 <h3  class=" fw-bold py-3">Recommendations</h3>
+    }
+
 @for(movie of similarMovies() ; track movie.id){
    <div class="col-md-2 col-6 cardMovie" >
 
@@ -43,12 +76,12 @@
                               <img [src]="'https://image.tmdb.org/t/p/w500'+movie.poster_path" class="card-img-top rounded-3" alt="...">
 
                         </a>
-  <div class="card-body d-flex justify-content-between border-0 ">
+  <div class="card-body  border-0 ">
     <div class="">
     <h5 class="card-title fs-5 fw-bold">{{movie.title}}</h5>
     <p class="card-text text-muted fs-6">{{movie.release_date}}</p>
     </div>
-<i class="fa-solid fa-heart"></i>
+
  
   </div>
 </div>

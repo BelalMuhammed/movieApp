@@ -4,3 +4,82 @@
 .bg-gray{
  background-color: rgba(243, 241, 241, 1) ;  
 }
+
+::ng-deep ngb-pagination {
+  justify-content: center; // center align
+  margin-top: 20px;
+}
+
+::ng-deep ngb-pagination .page-item {
+  margin: 0 4px;
+}
+
+::ng-deep ngb-pagination .page-link {
+border: none;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 38px;
+  background-color: transparent;
+  color: black;
+
+}
+::ng-deep ngb-pagination .page-link:hover{
+   color: black;  
+}
+
+::ng-deep ngb-pagination .page-item.active .page-link {
+  background-color:  rgba(255, 227, 83, 1);
+  color: black;
+  border-color: black;
+}
+
+.circle-progress {
+  transform: rotate(-90deg);
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #444;
+  stroke-width: 5;
+}
+
+.circle {
+  fill: none;
+//   stroke: white;
+overflow: hidden;
+z-index: 10;
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.35s, stroke 0.35s;
+}
+
+.circle-overlay-small {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  color: white;
+  font-size: 10px;
+padding: 11px 7px;
+    border-radius: 15px;
+  min-width: 24px;
+  text-align: center;
+  line-height: 1;
+  z-index: 9;
+}
+
+.vote-circle {
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.counter{
+    position: absolute;
+    top: -20px;
+   left: 12px;
+
+}
+

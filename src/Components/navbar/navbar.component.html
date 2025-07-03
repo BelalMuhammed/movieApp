@@ -6,15 +6,43 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-          <a class="nav-link" href="#">En</a>
+  <li class="nav-item">
+
+	<div class="row">
+    <div class="col">
+<div ngbDropdown class="d-inline-block">
+			<button type="button" class="btn border-0 text-dark" id="dropdownBasic1" ngbDropdownToggle>
+				{{selectedLanguage}}
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+				<button ngbDropdownItem (click)="selectLanguage('Ar')">Ar</button>
+				<button ngbDropdownItem (click)="selectLanguage('Fr')">Fr</button>
+				<button ngbDropdownItem (click)="selectLanguage('Zh')">Zh</button>
+        <button ngbDropdownItem (click)="selectLanguage('En')">En</button>
+			</div>
+	
+</div>
+    </div>
+  </div>
+
         </li>
+
+
+            <li class="nav-item">
+          <a class="nav-link " routerLink="home" routerLinkActive="router-link-active" >Home</a>
+        </li>
+
         <li class="nav-item">
           <a class="nav-link " routerLink="tvShows" routerLinkActive="router-link-active" >TvShows</a>
         </li>
       
-        <li class="nav-item">
-          <a class="nav-link" routerLink="wishList" routerLinkActive="router-link-active" >wishList</a>
+        <li class="nav-item position-relative">
+          <a class="nav-link" routerLink="wishList" routerLinkActive="router-link-active" >WatchList
+            @if(this._wishlist.moviesWishlist().length+this._wishlist.tvShowsWishlist().length){
+               <span class="counter p-1 px-2 bg-white text-dark fw-bold rounded-1 ">{{this._wishlist.moviesWishlist().length+this._wishlist.tvShowsWishlist().length}}</span>
+            }
+           
+          </a>
         </li>
   
   

@@ -1,28 +1,53 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { MoviesService } from '../../services/movies.service';
 import { Movie } from '../../interfaces/movie';
 import {  RouterLink } from '@angular/router';
 import { WishlistService } from '../../services/wishlist.service';
 import { CommonModule } from '@angular/common';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-movie-list',
-  imports: [RouterLink,CommonModule],
+  imports: [RouterLink,CommonModule,NgbPaginationModule,FormsModule],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.scss'
 })
-export class MovieListComponent implements OnInit{
+export class MovieListComponent {
+Math = Math;
+  term:string=""
+  page = 1;
+collectionSize = 150;
 movies = signal<Movie[]>([]);
 _wishList = inject(WishlistService)
-private _moviesService = inject(MoviesService);
+ _moviesService = inject(MoviesService);
 
-ngOnInit(): void {
-  this._moviesService.getMovies().subscribe({
-    next:(res:any)=>{console.log(res);
+
+
+   constructor() {
+    effect(() => {
+      const lang = this._moviesService.language();   
+      this.fetchMovies();                           
+    });
+  }
+
+
+fetchMovies() {
+  this._moviesService.getMovies(this.page,this._moviesService.language()).subscribe({
+    next: (res: any) => {
+      console.log(res);
+      
       this.movies.set(res.results);
+      if (res.total_pages) {
+        this.collectionSize = res.total_pages;
+      }
     }
-  })
+  });
+}
 
+onPageChange(pageNumber: number) {
+  this.page = pageNumber;
+  this.fetchMovies();
 }
 
 toggleInWishlist(item: any, type: 'movie' | 'tv') {
@@ -33,17 +58,22 @@ isInWishlist(item: any, type: 'movie' | 'tv'): boolean {
   return this._wishList.isInWishlist(item, type);
 }
 
-  // toggleWishlist(event: Event, product: Product) {
-  //   event.stopPropagation(); // prevent propagation if needed
-  //   event.preventDefault();  // prevent navigation if inside routerLink
+search(){
+  if(this.term){
+  this._moviesService.searchByName(this.term).subscribe({
+    next:(res:any)=>{this.movies.set(res.results);}
+  })
+  }else{
+    this.fetchMovies()
+  }
 
-  //   if (this._wishList.isInWishlist(product)) {
-  //     this._wishList.removeProduct(product.id);
-  //     this._toast.info("Product removed from wishList");
-  //   } else {
-  //     this._wishList.addProduct(product);
-  //       this._toast.success("Product added to wishList");
-  //   }
-  // }
+}
+
+getVoteColor(voteAverage: number): string {
+  const percentage = voteAverage * 10;
+  if (percentage >= 70) return '#28a745';       // green
+  if (percentage >= 50) return '#ffc107';       // yellow
+  return '#dc3545';                             // red
+}
 
 }
